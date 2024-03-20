@@ -218,6 +218,32 @@ class Tree
         p level_order
         return level_order.values.max
     end
+    def depth(node)
+        # We use this hash to record all the depths of nodes 
+        # until we find our node's depth
+        level_order = {}
+        # We'll traverse the node in breadth-first order
+        queue = Queue.new
+        # We start from the root node which has a depth of 0
+        queue.enqueue(root)
+        level_order[root.data] = 0
+        # We run this loop until we find our node 
+        while queue.read && !level_order[node.data]
+            current_node = queue.dequeue
+            if current_node.left_child
+                queue.enqueue(current_node.left_child)
+                level_order[current_node.left_child.data] = 
+                                        level_order[current_node.data] + 1
+            end
+            if current_node.right_child
+                queue.enqueue(current_node.right_child)
+                level_order[current_node.right_child.data] =
+                                        level_order[current_node.data] + 1
+            end
+        end
+
+        return level_order[node.data]
+    end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
