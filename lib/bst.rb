@@ -131,11 +131,11 @@ class Tree
         # If the value is less than the current node, perform
         # search on the left child:
         elsif search_value < node.value
-            return search(search_value, node.left_child)
+            return find(search_value, node.left_child)
         # If the value is greater than the current node, perform
         # search on the right child:
         else # search_value > node.value
-            return search(search_value, node.right_child)
+            return find(search_value, node.right_child)
         end
     end
     def level_order(node = @root, &block)
