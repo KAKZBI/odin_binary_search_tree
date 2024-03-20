@@ -266,21 +266,28 @@ class Tree
     end
 end
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.pretty_print
+tree = Tree.new(Array.new(15) { rand(1..100) })
 p tree.balanced?
-tree.insert(2)
-tree.insert(6)
-tree.insert(32)
-tree.insert(64)
+p tree.level_order
+p tree.traverse_preorder
+p tree.traverse_inorder
+p tree.traverse_postorder
+tree.pretty_print
+
 tree.insert(100)
 tree.insert(101)
 tree.insert(200)
 tree.insert(201)
+tree.insert(1002)
+tree.insert(2376)
 tree.pretty_print
-p tree.traverse_inorder
-p tree.height
+
 p tree.balanced?
 tree.rebalance
 tree.pretty_print
 p tree.balanced?
+
+p tree.level_order
+p tree.traverse_preorder
+p tree.traverse_inorder
+p tree.traverse_postorder
