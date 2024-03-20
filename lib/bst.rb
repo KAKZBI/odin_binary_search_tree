@@ -194,7 +194,30 @@ class Tree
         end
         return postorder_array
     end
-    
+    def height(node = root)
+        # We create this hash to record the levels of each node in our tree
+        level_order = {}
+        #We'll traverse the tree in breadth-first order
+        queue = Queue.new
+        queue.enqueue(node)
+        # the node given as argument has a level of 0
+        level_order[node.data] = 0
+        while queue.read
+            current_node = queue.dequeue
+            if current_node.left_child
+                queue.enqueue(current_node.left_child)
+                level_order[current_node.left_child.data] = 
+                                        level_order[current_node.data] + 1
+            end
+            if current_node.right_child
+                queue.enqueue(current_node.right_child)
+                level_order[current_node.right_child.data] =
+                                        level_order[current_node.data] + 1
+            end
+        end
+        p level_order
+        return level_order.values.max
+    end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
@@ -202,3 +225,4 @@ tree.pretty_print
 p tree.traverse_inorder
 p tree.traverse_preorder
 p tree.traverse_postorder
+p tree.height
