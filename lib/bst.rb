@@ -215,7 +215,7 @@ class Tree
                                         level_order[current_node.data] + 1
             end
         end
-        p level_order
+        # p level_order
         return level_order.values.max
     end
     def depth(node)
@@ -261,11 +261,26 @@ class Tree
         end
         (height(root.left_child) - height(root.right_child)).abs <= 1
     end
+    def rebalance
+        self.initialize(self.traverse_inorder)
+    end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.pretty_print
+p tree.balanced?
+tree.insert(2)
+tree.insert(6)
+tree.insert(32)
+tree.insert(64)
+tree.insert(100)
+tree.insert(101)
+tree.insert(200)
+tree.insert(201)
+tree.pretty_print
 p tree.traverse_inorder
-p tree.traverse_preorder
-p tree.traverse_postorder
+p tree.height
+p tree.balanced?
+tree.rebalance
+tree.pretty_print
 p tree.balanced?
