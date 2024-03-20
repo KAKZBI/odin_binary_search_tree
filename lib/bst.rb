@@ -244,6 +244,23 @@ class Tree
 
         return level_order[node.data]
     end
+    def balanced?
+        if root.left_child.nil? 
+            if height(root.right_child) > 1
+                return false
+            else
+                return true
+            end        
+        end
+        if root.right_child.nil? 
+            if height(root.left_child) > 1
+                return false
+            else
+                return true
+            end   
+        end
+        (height(root.left_child) - height(root.right_child)).abs <= 1
+    end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
@@ -251,4 +268,4 @@ tree.pretty_print
 p tree.traverse_inorder
 p tree.traverse_preorder
 p tree.traverse_postorder
-p tree.height
+p tree.balanced?
