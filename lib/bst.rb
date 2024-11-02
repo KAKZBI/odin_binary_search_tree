@@ -81,7 +81,7 @@ class Tree
             # be used as the new value of its parent's left or right child:
             return node
         elsif value_to_delete > node.data
-            node.riht_child = delete(value_to_delete, node.riht_child)
+            node.right_child = delete(value_to_delete, node.right_child)
             return node
             # If the current node is the one we want to delete:
         elsif value_to_delete == node.data
@@ -89,17 +89,17 @@ class Tree
             # returning its right child (and its subtree if existent)
             # to be its parent's new subtree:
             if node.left_child.nil?
-                return node.riht_child
+                return node.right_child
                 # (If the current node has no left OR right child, this ends up
                 # being None as per the first line of code in this function.)
-            elsif node.riht_child.nil?
+            elsif node.right_child.nil?
                 return node.left_child
             # If the current node has two children, we delete the current node
             # by calling the lift function (below),
             # which changes the current node's
             # value to the value of its successor node:
             else
-                node.riht_child = lift(node.riht_child, node)
+                node.right_child = lift(node.right_child, node)
                 return node
             end
         end
@@ -119,7 +119,7 @@ class Tree
             node_to_delete.data = node.data
             # We return the successor node's right child to be now used
             # as its parent's left child:
-            return node.riht_child
+            return node.right_child
         end
     end
 
