@@ -258,15 +258,16 @@ class Tree
         return "Node not found" unless  level_order[target_node.data]
         return level_order[target_node.data]
     end
-    def depth_recurse(node = @root, current_node = @root, node_depth_recurse = 0)
-        return nil if node.nil?
-        return node_depth_recurse if current_node.data == node.data
-        if node.data < current_node.data
-          return depth_recurse(node, current_node.left, node_depth_recurse + 1)
+    def depth_recurse(target_node = @root, current_node = @root, node_depth_recurse = 0)
+        return nil if target_node.nil?
+        return "Node not found" unless current_node
+        return node_depth_recurse if current_node.data == target_node.data
+        if target_node.data < current_node.data
+          return depth_recurse(target_node, current_node.left, node_depth_recurse + 1)
         else
-          return depth_recurse(node, current_node.right, node_depth_recurse + 1)
+          return depth_recurse(target_node, current_node.right, node_depth_recurse + 1)
         end
-      end
+    end
     def balanced?
         if root.left_child.nil? 
             if height(root.right_child) > 1
