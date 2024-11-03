@@ -229,7 +229,7 @@ class Tree
                                         level_order[current_node.data] + 1
             end
         end
-        p level_order
+        # p level_order
         return level_order.values.max
     end
     def depth(target_node)
