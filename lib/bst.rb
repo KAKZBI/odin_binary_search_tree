@@ -161,6 +161,20 @@ class Tree
 
         return visited_nodes unless block_given?
     end
+    def level_order_recursion(node = @root, queue = Queue.new, values = [], &block)
+        return unless node
+        if block_given?
+          block.call(node)
+        else
+          values << node.data
+        end
+        queue.enq(node.left) if node.left
+        queue.enq(node.right) if node.right
+        if !block_given? && queue.empty? 
+          return values
+        end
+        level_order_recursion(queue.deq, queue, &block) 
+      end
     def traverse_inorder(node = root, inorder_array = [], &block)
         return node if node.nil?
         traverse_inorder(node.left_child, inorder_array)
@@ -215,12 +229,12 @@ class Tree
                                         level_order[current_node.data] + 1
             end
         end
-        # p level_order
+        p level_order
         return level_order.values.max
     end
-    def depth(node)
+    def depth(target_node)
         # We use this hash to record all the depths of nodes 
-        # until we find our node's depth
+        # until we find our target_node's depth
         level_order = {}
         # We'll traverse the node in breadth-first order
         queue = Queue.new
@@ -228,7 +242,7 @@ class Tree
         queue.enqueue(root)
         level_order[root.data] = 0
         # We run this loop until we find our node 
-        while queue.read && !level_order[node.data]
+        while queue.read && !level_order[target_node.data]
             current_node = queue.dequeue
             if current_node.left_child
                 queue.enqueue(current_node.left_child)
@@ -241,9 +255,18 @@ class Tree
                                         level_order[current_node.data] + 1
             end
         end
-
-        return level_order[node.data]
+        return "Node not found" unless  level_order[target_node.data]
+        return level_order[target_node.data]
     end
+    def depth_recurse(node = @root, current_node = @root, node_depth_recurse = 0)
+        return nil if node.nil?
+        return node_depth_recurse if current_node.data == node.data
+        if node.data < current_node.data
+          return depth_recurse(node, current_node.left, node_depth_recurse + 1)
+        else
+          return depth_recurse(node, current_node.right, node_depth_recurse + 1)
+        end
+      end
     def balanced?
         if root.left_child.nil? 
             if height(root.right_child) > 1
